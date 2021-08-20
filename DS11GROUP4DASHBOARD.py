@@ -23,75 +23,110 @@ with intro:
    st.header('Analysis to Find the Distribution of Healthcare Services and Workforce in Kenya and Its Correlation to Economic Growth')
    st.subheader('Background Information')
    st.text('This research explores the distribution of health care services in Kenya to identify gaps\nand give recommendations to government on future policy implications as well as the private\nsector on where to channel their resources because building on this and prior research,\nit is evident that the good health of citizens indeed results in an overall better economy')
-   st.subheader('Problem Statement')
-   st.text('How do we improve the healthcare infrastructure to ensure no matter your location in Kenya\nyou have access to proper healthcare by ensuring money allocated to healthcare across the\ncountry is fair and sufficient to cater to its persons.')
+   # st.subheader('Problem Statement')
+   # st.text('How do we improve the healthcare infrastructure to ensure no matter your location in Kenya\nyou have access to proper healthcare by ensuring money allocated to healthcare across the\ncountry is fair and sufficient to cater to its persons.')
    
 # 4.Datasets
 with dataset:
    st.subheader('Datasets Used')
-   st.text('In order to fulfill the objectives of our project, we will derive our datasets from\nthe National Census and most of the surveys done by the Kenya National bureau of\nstatistics. More from open data, WHO and UNICEF.')
+   # st.text('In order to fulfill the objectives of our project, we will derive our datasets from\nthe National Census and most of the surveys done by the Kenya National bureau of\nstatistics. More from open data, WHO and UNICEF.')
    
    st.markdown('Dataset 1: Annual GDP Kenya')
    AnnGDP= pd.read_csv("https://raw.githubusercontent.com/franciskingk/Healthcare-dataset/main/Annual%20GDP.csv")  
-   AnnGDP
+   # AnnGDP
    
    st.markdown('Dataset 2: Health Spending per Capita by County')
    HealthperCapita = pd.read_csv("https://raw.githubusercontent.com/franciskingk/Healthcare-dataset/main/Health_Spending_Per_Capita_By_County.csv")  
-   HealthperCapita
+   # HealthperCapita
       
    st.markdown('Dataset 3: List of hospitals and number of beds - Kenya 2020')
    HbedsKe = pd.read_csv("https://raw.githubusercontent.com/franciskingk/Healthcare-dataset/main/List%20of%20hospitals%20and%20number%20of%20beds%20-%20Kenya%202020.csv")  
-   HbedsKe
+   # HbedsKe
 
    st.markdown('Dataset 4: Kenyan Allocation to Health per year')
    AnnHealthAllocationKe =pd.read_csv("https://raw.githubusercontent.com/joywangai/DS11-GROUP4-DATA-SCIENCE-PROJECT-VIS/main/kenyan_allocation_to_health_per_year1.csv")  
-   AnnHealthAllocationKe
+   # AnnHealthAllocationKe
 
    st.markdown('Dataset 5: Allocation to Health per year Worldwide')
    D6 = read_csv("https://raw.githubusercontent.com/joywangai/DS11-GROUP4-DATA-SCIENCE-PROJECT-VIS/main/percentage_of_gdp_alocated_to_healt1.csv")  
    D6.sort_values(D6.columns[23], axis=0, inplace=True)
-   D6
+   # D6
 
    st.markdown('Dataset 6: Health Staff')
    D7 = read_csv("https://raw.githubusercontent.com/joywangai/DS11-GROUP4-DATA-SCIENCE-PROJECT-VIS/main/healthstaff11.csv") 
    D7.sort_values(D7.columns[1], axis=0, inplace=True) 
-   D7
+   # D7
 
 # 5.Data Analytics
 with analytics:
    st.subheader('Data Analysis')
-   st.text('These are the results of our data analysis.')
+   # st.text('These are the results of our data analysis.')
 
-   st.markdown('1. The ownership of Hospitals in Kenya')
    HbedsKe1=plot.figure(figsize=(5,3))
    HbedsKe['Owner type'].value_counts().plot(kind= 'pie', autopct='%.1f%%')
-   st.write(HbedsKe1)
+   # st.write(HbedsKe1)
 
-   st.markdown('2. Distribution of Hospital levels in Kenya')
    HbedsKe2=plot.figure(figsize=(10,3))
    HbedsKe['Keph level'].value_counts().plot(kind= 'bar')
-   st.write(HbedsKe2)
-
-   st.markdown('3. Amount spent on healthcare in Kenya vs the world')
+   # st.write(HbedsKe2)
+   
    D61=plot.figure(figsize=(16,12))
    sns.barplot(x='2018yr', y='Country Name', data=D6)
-   st.write(D61) 
-
-   st.markdown('4. Distribution per county of healthcare workers per 10,000 people')
+   # st.write(D61) 
+   
    D71= plot.figure(figsize=(16,12))
    sns.barplot(x='Core health workforce per 10,000\rpopulation', y='County', data=D7)
-   st.write(D71)
-
-   st.markdown('5. Distribution of Healthcare  expenditure as a % of the GDP from the year 2000 to the year 2018')
+   # st.write(D71)
+   
    AnnHealthAllocationKe1=plot.figure(figsize=(16,12))
    sns.barplot(x='Year', y='Current health expenditure (% of GDP)', data=AnnHealthAllocationKe)
-   st.write(AnnHealthAllocationKe1)
+   # st.write(AnnHealthAllocationKe1)
 
-   st.markdown('6. Distribution of GDP growth from the year 2000 to the year 2018')
    AnnGDP1=plot.figure(figsize=(16,12))
    sns.barplot(x='Year', y='Annual GDP growth (%)', data=AnnGDP)
-   st.write(AnnGDP1)
- 
+   # st.write(AnnGDP1)
+
+   percapita1=plot.figure(figsize=(16,12))
+   sns.barplot(x='County', y='Heath_Spending_Per_Person_', data=HealthperCapita)
+   # st.write(percapita1)
+
+
+# 5.1 Print the Data Visualisations
+   option = st.selectbox("Choose Dataset", ('Dataset 1', 'Dataset 2', 'Dataset 3', 'Dataset 4', 'Dataset 5', 'Dataset 6'))
+   st.header(option)
+
+   if option == 'Dataset 1':
+      'A. GDP', AnnGDP
+      st.markdown('B. Distribution of GDP growth from the year 2000 to the year 2018')
+      st.write(AnnGDP1)
+
+   if option == 'Dataset 2':
+      'A. Health Spending per Capita by County', HealthperCapita
+      st.markdown('B. Distribution of Health Spending per Capita by County')
+      st.write(percapita1)
+
+   if option == 'Dataset 3':
+      'A. List of hospitals and number of beds - Kenya 2020', HbedsKe
+      st.markdown('B. The ownership of Hospitals in Kenya')
+      st.write(HbedsKe1)
+      st.markdown('C. Distribution of Hospital levels in Kenya')
+      st.write(HbedsKe2)
+   
+   if option == 'Dataset 4':
+      'A. Kenyan Allocation to Health per year', AnnHealthAllocationKe
+      st.markdown('B. Distribution of Healthcare expenditure as a % of the GDP from the year 2000 to the year 2018')
+      st.write(AnnHealthAllocationKe1)
+
+   if option == 'Dataset 5':
+      'A. Allocation to Health per year Worldwide', D6
+      st.markdown('B. Amount spent on healthcare in Kenya vs the world')
+      st.write(D61)
+
+   if option == 'Dataset 6':
+      'A. Health Staff', D7
+      st.markdown('B. Distribution per county of healthcare workers per 10,000 people')
+      st.write(D71)   
+   
 # 6.Conclusion
 with conclusion:
    st.subheader('Recommendations')
