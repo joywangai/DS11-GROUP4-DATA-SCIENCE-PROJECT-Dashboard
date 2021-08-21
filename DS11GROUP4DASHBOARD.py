@@ -87,7 +87,7 @@ with analytics:
    # st.write(AnnGDP1)
 
    percapita1=plot.figure(figsize=(16,12))
-   sns.barplot(x='County', y='Heath_Spending_Per_Person_', data=HealthperCapita)
+   sns.barplot(y='County', x='Heath_Spending_Per_Person_', data=HealthperCapita)
    # st.write(percapita1)
 
 
